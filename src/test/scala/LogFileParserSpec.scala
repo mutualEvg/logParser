@@ -12,7 +12,7 @@ class LogFileParserSpec extends FunSuite {
 
     val filenames = fileName.getLines().map(line => parser.getFileName(parser.parseLine(line))).toSeq
     assert(filenames == List(
-      Some("phkkrw.ext"), Some("asdf.pdf"), Some("phkkrw.ext"), Some("phkkrw.ext"), Some("phkkrw"), Some("phkkrw")))
+      Some("phkkrw.ext"), Some("asdf.pdf"), Some("phkkrw.ext"), Some("phkkrz.ext"), Some("phkkrw"), Some("phkkrw")))
   }
 
   test("Json parsed correctly for empty filenames") {
@@ -31,7 +31,7 @@ class LogFileParserSpec extends FunSuite {
     val handle = parser.parseAndHandle(fileName)
     val result = parser.countFilesWithExtensions(handle)
 
-    val expected = Seq("ext : 3", "pdf : 1", "no_extension : 2")
+    val expected = Seq("ext : 2", "pdf : 1", "no_extension : 1")
     assert(result == expected)
   }
 
@@ -42,7 +42,7 @@ class LogFileParserSpec extends FunSuite {
     val handle = parser.parseAndHandle(fileName)
     val result = parser.countFilesWithExtensions(handle)
 
-    val expected = Seq("no_extension : 3")
+    val expected = Seq("no_extension : 2")
     assert(result == expected)
   }
 

@@ -24,10 +24,9 @@ class LogFileParser {
             case 0 => Array(fNameExt)
             case _ => fileNameWithExt
           }
-          println(fNameExtChecked.length)
           fNameExtChecked.length match {
-            case 1 => addValue(map, ("no_extension" -> "no_extension"))
-            case 2 => addValue(map, (fNameExtChecked.head -> fNameExtChecked.tail.head))
+            case 1 => addValue(map, ("no_extension" -> fNameExtChecked.head))
+            case 2 => addValue(map, (fNameExtChecked.tail.head -> fNameExtChecked.head))
             case _ => map
           }
         }
@@ -49,8 +48,8 @@ class LogFileParser {
   }
 
   def countFilesWithExtensions(map: Map[String, List[String]]): Seq[String] = {
-    map.values.map { value =>
-      s"${value.head} : ${value.length}"
+    map.map { entry =>
+      s"${entry._1} : ${entry._2.toSet.size}"
     }.toSeq
   }
 }
